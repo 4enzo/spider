@@ -33,7 +33,7 @@ def spider_one(num):
     for i in range(1,num+1):
         try:
             full_url = url+str(i)
-            page = requests.get(full_url,headers).content
+            page = requests.get(full_url,headers=headers).content
             soup = bs4.BeautifulSoup(page,'html.parser')
             # print(soup)
             title = soup.find('div',class_="one-titulo").text.strip()
@@ -73,7 +73,7 @@ def download_image(title,image_url):
     '''以VOL.xxx.jpg格式保存图片'''
     if not os.path.exists('./images'):
         os.makedirs('./images')
-    image = requests.get(image_url, headers).content
+    image = requests.get(image_url, headers=headers).content
     with open('./images/' + title + '.jpg', 'wb') as f:
         f.write(image)
 
