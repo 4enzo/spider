@@ -65,7 +65,10 @@ def write2db(title,content,image_url):
     db = conn.spider
     # 使用one集合，没有则自动创建
     my_collection = db.one
-    my_collection.insert({'title':title,'comments':content,'image':image_url})
+    if my_collection.find_one({"title":title}):
+        pass
+    else:
+        my_collection.insert({'title':title,'comments':content,'image':image_url})
 
     conn.close()
 
