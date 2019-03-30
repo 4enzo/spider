@@ -20,6 +20,14 @@ headers = {
     "User-Agent": "Mozilla/5.0 (Windows NT 6.1; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/67.0.3396.79 Safari/537.36"
 }
 
+def get_curr_num():
+    #加载首页获取当前最新的VOL.XXXX 的XXXX号，方便linux下cron执行
+    url = "http://wufazhuce.com/"
+    page = requests.get(url, headers=headers).content
+    soup = bs4.BeautifulSoup(page, 'html.parser')
+    curr_num = soup.find('p', class_="one-titulo").text.strip()[4:]
+    # print(curr_num)
+    return int(curr_num)
 
 def spider_one(num):
     logging.basicConfig(level=logging.ERROR,
@@ -83,4 +91,4 @@ def download_image(title,image_url):
 
 
 if __name__ == '__main__':
-    spider_one(2279)
+    spider_one(get_curr_num())
