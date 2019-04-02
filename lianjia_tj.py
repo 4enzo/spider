@@ -60,9 +60,10 @@ def get_house_url(url_list):
             house_title = soup.find_all('li',class_="clear LOGCLICKDATA")[i].find('div',class_="title").find('a').string
             house_url = soup.find_all('li',class_="clear LOGCLICKDATA")[i].find('div',class_="title").find('a',class_="").get('href')
             # house.append('{%s,%s}'%(house_title,house_url))
-            house_url_list.append(house_url)
+            get_house_info(house_url)
+            # house_url_list.append(house_url)
 
-    return house_url_list
+    # return house_url_list
 
 def get_house_info(url):
     house_info = {}
@@ -106,10 +107,10 @@ def write2db(info):
 
 def main():
     page_url = get_pages_url()
-    house_url_list = get_house_url(page_url)
-    for url in house_url_list:
-        time.sleep(random.randint(1,10))
-        get_house_info(url)
+    get_house_url(page_url)
+    # for url in house_url_list:
+    #     time.sleep(random.randint(1,10))
+    #     get_house_info(url)
 
 
 if __name__ == '__main__':
